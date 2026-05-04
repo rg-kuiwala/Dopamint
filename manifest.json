@@ -1,0 +1,35 @@
+{
+  "name": "Coffee & Colors",
+  "short_name": "Coffee & Colors",
+  "description": "A mindful break with lo-fi music and mood colors",
+  "start_url": "./index.html",
+  "display": "standalone",
+  "background_color": "#1C0F08",
+  "theme_color": "#1C0F08",
+  "orientation": "portrait",
+  "categories": ["lifestyle", "music", "health"],
+  "icons": [
+    {
+      "src": "icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ],
+  "screenshots": [
+    {
+      "src": "screenshot.png",
+      "type": "image/png",
+      "sizes": "390x844",
+      "form_factor": "narrow"
+    }
+  ],
+  "related_applications": [],
+  "prefer_related_applications": false
+}
