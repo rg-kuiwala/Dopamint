@@ -21,7 +21,24 @@
 
 </head>
 <body>
-  <canvas></canvas>
+ <canvas id="bg"></canvas>
+ <div class="title">🌅 Take a Break • Relax Your Mind</div>
+  <div class="tag">Play with colors • Reset your thoughts</div>
+
+  <div class="controls">
+    <button class="btn" id="playBtn">▶ Play LoFi</button>
+  </div>
+
+  <div class="links">
+    <a href="https://buymeacoffee.com/rgkuiwala" target="_blank">☕ Buy Me a Coffee</a>
+    <span id="shareBtn"> | 📤 Share App</span>
+  </div>
+
+  <div class="footer">
+    Have a Great Day!! 🌅🌺🌿 From RG Kuiwala
+  </div>
+
+</div>
   
  
 <div> 🌅🌺🌿Take A Break 🌅Relex Your Mind🌺🌿</div>
@@ -41,6 +58,101 @@
 </div>
 
   <div><a href="https://buymeacoffee.com/rgkuiwala">Buy Me A Coffee ('')"</a><div>
+
+   <script>
+// 🎨 BACKGROUND ANIMATION
+const canvas = document.getElementById("bg");
+const ctx = canvas.getContext("2d");
+
+function resize(){
+  canvas.width = innerWidth;
+  canvas.height = innerHeight;
+}
+resize();
+window.addEventListener("resize", resize);
+
+let blobs = [];
+
+class Blob{
+  constructor(){
+    this.x = Math.random()*canvas.width;
+    this.y = Math.random()*canvas.height;
+    this.r = Math.random()*120+60;
+    this.dx = (Math.random()-0.5)*0.5;
+    this.dy = (Math.random()-0.5)*0.5;
+    this.color = `hsla(${Math.random()*360},80%,60%,0.15)`;
+  }
+
+  move(){
+    this.x += this.dx;
+    this.y += this.dy;
+
+    if(this.x<0||this.x>canvas.width) this.dx*=-1;
+    if(this.y<0||this.y>canvas.height) this.dy*=-1;
+  }
+
+  draw(){
+    ctx.beginPath();
+    ctx.arc(this.x,this.y,this.r,0,Math.PI*2);
+    ctx.fillStyle=this.color;
+    ctx.fill();
+  }
+}
+
+for(let i=0;i<8;i++) blobs.push(new Blob());
+
+function animate(){
+  ctx.clearRect(0,0,canvas.width,canvas.height);
+  blobs.forEach(b=>{b.move();b.draw();});
+  requestAnimationFrame(animate);
+}
+animate();
+
+// 🎧 SIMPLE LOFI SOUND (ambient tone)
+let audioCtx;
+let playing = false;
+
+document.getElementById("playBtn").onclick = async () => {
+  if(!playing){
+    audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+    const osc = audioCtx.createOscillator();
+    const gain = audioCtx.createGain();
+
+    osc.type = "sine";
+    osc.frequency.value = 220;
+
+    gain.gain.value = 0.05;
+
+    osc.connect(gain);
+    gain.connect(audioCtx.destination);
+
+    osc.start();
+
+    window.lofiOsc = osc;
+    playing = true;
+    playBtn.innerText = "⏸ Pause";
+  } else {
+    window.lofiOsc.stop();
+    playing = false;
+    playBtn.innerText = "▶ Play LoFi";
+  }
+};
+
+// 📤 SHARE
+document.getElementById("shareBtn").onclick = () => {
+  if(navigator.share){
+    navigator.share({
+      title:"Dopamint",
+      text:"Relax your mind with colors 🎨",
+      url:location.href
+    });
+  } else {
+    navigator.clipboard.writeText(location.href);
+    alert("Link copied!");
+  }
+};
+
+</script>
  
   <script src="script.js"></script>
 
