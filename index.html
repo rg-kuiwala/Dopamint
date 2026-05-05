@@ -14,56 +14,9 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 
   <link href="style.css" rel="stylesheet" type="text/css" />
+ <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Jost:wght@200;300;400;500&display=swap">
 <style>
 
-/* FOOTER */
-.controls{width:100%;display:flex;flex-direction:column;align-items:center;gap:11px}
-.mrow{display:flex;align-items:center;gap:11px;width:100%}
-.bplay{
-  display:flex;align-items:center;gap:8px;padding:11px 18px;border-radius:100px;
-  border:1px solid rgba(193,123,58,.45);background:rgba(193,123,58,.12);
-  color:var(--acc);font-family:'Jost',sans-serif;font-size:13px;font-weight:400;
-  letter-spacing:.06em;cursor:pointer;transition:all .3s ease,background var(--trans),
-  color var(--trans),border-color var(--trans);white-space:nowrap;flex-shrink:0
-}
-.bplay:hover{background:rgba(193,123,58,.22)}
-.bplay:active{transform:scale(.97)}
-.bplay.on{background:var(--acc);color:var(--bg1);border-color:var(--acc)}
-.vwrap{flex:1;display:flex;align-items:center;gap:8px}
-.vlbl{font-size:13px;color:var(--muted)}
-input[type=range]{
-  -webkit-appearance:none;appearance:none;flex:1;height:3px;border-radius:2px;
-  background:rgba(255,255,255,.12);outline:none;cursor:pointer
-}
-input[type=range]::-webkit-slider-thumb{
-  -webkit-appearance:none;width:13px;height:13px;border-radius:50%;
-  background:var(--acc);cursor:pointer;transition:background var(--trans)
-}
-.pdots{display:flex;gap:6px;align-items:center}
-.dot{
-  width:6px;height:6px;border-radius:50%;background:var(--muted);
-  transition:all .4s ease,background var(--trans);cursor:pointer
-}
-.dot.a{width:18px;border-radius:3px;background:var(--acc)}
-.bcolor{
-  width:100%;padding:13px;border-radius:14px;
-  border:1px solid rgba(255,255,255,.13);background:rgba(255,255,255,.05);
-  color:var(--txt);font-family:'Jost',sans-serif;font-size:13px;font-weight:300;
-  letter-spacing:.1em;cursor:pointer;
-  transition:all .3s ease,background var(--trans),color var(--trans)
-}
-.bcolor:hover{background:rgba(255,255,255,.1)}
-.bcolor:active{transform:scale(.985)}
-.flinks{display:flex;gap:14px;align-items:center;flex-wrap:wrap;justify-content:center}
-.fl{
-  font-size:11px;font-weight:300;letter-spacing:.08em;
-  color:var(--muted);text-decoration:none;cursor:pointer;
-  transition:color .3s;opacity:.8
-}
-.fl:hover{color:var(--acc)}
-.sep{color:var(--muted);opacity:.3;font-size:11px}
-@keyframes swapIn{0%{opacity:.3;transform:scale(.97)}100%{opacity:1;transform:scale(1)}}
-.swapping .main{animation:swapIn .55s ease}
 </style>
 
 </head>
