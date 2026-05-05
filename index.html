@@ -10,7 +10,7 @@
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 <meta name="apple-mobile-web-app-title" content="Coffee & Colors">
 <link id="mani" rel="manifest">
-<title>Coffee and Colors ☕</title>
+<title>Take a Break !! Tap !! Relax !! Feel Better ☕</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 
   <link href="style.css" rel="stylesheet" type="text/css" />
@@ -23,71 +23,14 @@
 <body>
  <canvas id="bg"></canvas>
 
- 
+<p>( Have a Great Day!! 🌅🌺🌿 From RG Kuiwala  )</p>
 <div> 🌅🌺🌿Take A Break 🌅Relex Your Mind🌺🌿</div>
 <div> 🌅🌺🌿Take Cup of Coffee 🌅Play With Colors 🌺🌿</div>
 <div> 🌅🌺🌿Reboot Again 🌅Ennjoy Your Work🌺🌿</div>
- 
-<p>( Have a Great Day!! 🌅🌺🌿 From RG Kuiwala  )</p>
+<div><a href="https://buymeacoffee.com/rgkuiwala">Buy Me A Coffee ('')"</a><div> 
 
-<div class="controls">
-  <button id="playBtn">▶ Play LoFi</button>
 
-  <div class="links">
-    <a href="https://buymeacoffee.com/rgkuiwala">☕ Buy Me a Coffee</a>
-    <span> | </span>
-    <span id="shareBtn">📤 Share App</span>
-  </div>
-</div>
 
-  <div><a href="https://buymeacoffee.com/rgkuiwala">Buy Me A Coffee ('')"</a><div>
-
-   <script>
-// 🎧 SIMPLE LOFI SOUND (ambient tone)
-let audioCtx;
-let playing = false;
-
-document.getElementById("playBtn").onclick = async () => {
-  if(!playing){
-    audioCtx = new (window.AudioContext || window.webkitAudioContext)();
-    const osc = audioCtx.createOscillator();
-    const gain = audioCtx.createGain();
-
-    osc.type = "sine";
-    osc.frequency.value = 220;
-
-    gain.gain.value = 0.05;
-
-    osc.connect(gain);
-    gain.connect(audioCtx.destination);
-
-    osc.start();
-
-    window.lofiOsc = osc;
-    playing = true;
-    playBtn.innerText = "⏸ Pause";
-  } else {
-    window.lofiOsc.stop();
-    playing = false;
-    playBtn.innerText = "▶ Play LoFi";
-  }
-};
-
-// 📤 SHARE
-document.getElementById("shareBtn").onclick = () => {
-  if(navigator.share){
-    navigator.share({
-      title:"Dopamint",
-      text:"Relax your mind with colors 🎨",
-      url:location.href
-    });
-  } else {
-    navigator.clipboard.writeText(location.href);
-    alert("Link copied!");
-  }
-};
-
-</script>
  
   <script src="script.js"></script>
 
