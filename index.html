@@ -38,6 +38,15 @@ canvas#pts{position:fixed;inset:0;pointer-events:none;z-index:1}
   padding:clamp(20px,5vw,44px) clamp(20px,5vw,36px);
 }
 
+  #bg-animation {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  overflow: hidden;
+  filter: blur(20px) saturate(120%);
+  opacity: 0.6;
+}
+
 /* HEADER */
 .hdr{width:100%;display:flex;justify-content:space-between;align-items:center}
 .pbadge{
@@ -167,7 +176,7 @@ input[type=range]::-webkit-slider-thumb{
 </style>
 </head>
 <body>
-
+<div id="bg-animation"></div>
 <canvas id="pts"></canvas>
 
 <div class="app" id="app">
@@ -406,7 +415,7 @@ class Pt {
   }
 }
 
-for(let i=0;i<28;i++) parts.push(new Pt(true));
+for(let i=0;i<20;i++) parts.push(new Pt(true));
 
 (function anim(){ cx2.clearRect(0,0,cv.width,cv.height);
   parts.forEach(p=>{p.tick();p.draw()});
@@ -625,6 +634,73 @@ document.getElementById('shareBtn').addEventListener('click',()=>{
 // INIT
 // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 applyPal(PALS[0]);
+  // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+// BACKGROUND COLOR FLOW (NEW)
+// ━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+const bgContainer = document.getElementById("bg-animation");
+
+const bgCanvas = document.createElement("canvas");
+bgContainer.appendChild(bgCanvas);
+
+const bgCtx = bgCanvas.getContext("2d");
+
+function resizeBG() {
+  bgCanvas.width = window.innerWidth;
+  bgCanvas.height = window.innerHeight;
+}
+resizeBG();
+window.addEventListener("resize", resizeBG);
+
+let blobs = [];
+
+class Blob {
+  constructor() {
+    this.reset();
+  }
+
+  reset() {
+    this.x = Math.random() * bgCanvas.width;
+    this.y = Math.random() * bgCanvas.height;
+    this.r = Math.random() * 120 + 60;
+    this.dx = (Math.random() - 0.5) * 0.5;
+    this.dy = (Math.random() - 0.5) * 0.5;
+
+    this.color = `hsla(${Math.random() * 360}, 80%, 60%, 0.15)`;
+  }
+
+  move() {
+    this.x += this.dx;
+    this.y += this.dy;
+
+    if (this.x < 0 || this.x > bgCanvas.width) this.dx *= -1;
+    if (this.y < 0 || this.y > bgCanvas.height) this.dy *= -1;
+  }
+
+  draw() {
+    bgCtx.beginPath();
+    bgCtx.arc(this.x, this.y, this.r, 0, Math.PI * 2);
+    bgCtx.fillStyle = this.color;
+    bgCtx.fill();
+  }
+}
+
+for (let i = 0; i < 8; i++) {
+  blobs.push(new Blob());
+}
+
+function animateBG() {
+  bgCtx.clearRect(0, 0, bgCanvas.width, bgCanvas.height);
+
+  blobs.forEach(b => {
+    b.move();
+    b.draw();
+  });
+
+  requestAnimationFrame(animateBG);
+}
+
+animateBG();
 </script>
 </body>
 </html>
