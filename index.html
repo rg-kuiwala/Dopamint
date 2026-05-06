@@ -46,34 +46,28 @@ p {
 
 <a href="https://buymeacoffee.com/rgkuiwala">Buy Me A Coffee ('')"</a> 
 
-<!-- 🎵 Audio -->
 <audio id="bgMusic" loop></audio>
 
-<button class="music-btn" onclick="toggleMusic()">🎵 Play</button>
+<button class="music-btn" onclick="toggleMusic(this)">🎵 Play</button>
 
 <script>
 const music = document.getElementById("bgMusic");
 
-// 🎶 Mood-based tracks (replace with your own hosted links)
+// 🎶 Tracks
 const tracks = {
   morning: "https://cdn.pixabay.com/download/audio/2022/03/15/audio_c8c8a73467.mp3",
   night: "https://cdn.pixabay.com/download/audio/2021/09/06/audio_8d1bdfc3b2.mp3",
   rain: "https://cdn.pixabay.com/download/audio/2022/10/25/audio_946b6f1f91.mp3"
 };
 
-// 🌦️ Detect mood
+// 🌤️ Mood detect
 function getMood() {
   const hour = new Date().getHours();
-
-  // Simulated rain condition (later API se connect kar sakta hai)
-  const isRaining = false; // change dynamically later
-
-  if (isRaining) return "rain";
   if (hour >= 5 && hour < 18) return "morning";
   return "night";
 }
 
-// 🎼 Load correct music
+// 🎵 Set music
 function setMoodMusic() {
   const mood = getMood();
   music.src = tracks[mood];
@@ -82,14 +76,17 @@ function setMoodMusic() {
 
 setMoodMusic();
 
-// ▶️ Toggle
-function toggleMusic() {
+// ▶️ FIXED toggle (button pass kiya)
+function toggleMusic(btn) {
   if (music.paused) {
-    music.play();
-    event.target.innerText = "⏸ Pause";
+    music.play().then(() => {
+      btn.innerText = "⏸ Pause";
+    }).catch(err => {
+      alert("Click again to enable sound 🔊");
+    });
   } else {
     music.pause();
-    event.target.innerText = "🎵 Play";
+    btn.innerText = "🎵 Play";
   }
 }
 </script>
