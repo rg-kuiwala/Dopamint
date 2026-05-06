@@ -21,18 +21,7 @@ p {
   margin-bottom: 5px;
 }
 
-/* Play Button */
-.music-btn {
-  position: fixed;
-  bottom: 20px;
-  right: 20px;
-  background: #00000088;
-  color: white;
-  border: none;
-  padding: 10px 15px;
-  border-radius: 20px;
-  cursor: pointer;
-}
+
 </style>
 
 </head>
@@ -46,56 +35,6 @@ p {
 
 <a href="https://buymeacoffee.com/rgkuiwala">Buy Me A Coffee ('')"</a> 
 
-<audio id="bgMusic" preload="auto"></audio>
-
-<button onclick="toggleMusic(this)">🎵 Play</button>
-
-<script>
-const music = document.getElementById("bgMusic");
-
-// 🎶 Playlist (apne links daal sakta hai)
-const playlist = [
-  "https://cdn.pixabay.com/download/audio/2022/03/15/audio_c8c8a73467.mp3",
-  "https://cdn.pixabay.com/download/audio/2021/09/06/audio_8d1bdfc3b2.mp3",
-  "https://cdn.pixabay.com/download/audio/2022/10/25/audio_946b6f1f91.mp3"
-];
-
-let currentIndex = -1;
-
-// 🔀 Next random track (no repeat)
-function playNext() {
-  let nextIndex;
-  do {
-    nextIndex = Math.floor(Math.random() * playlist.length);
-  } while (nextIndex === currentIndex);
-
-  currentIndex = nextIndex;
-  music.src = playlist[currentIndex];
-  music.volume = 0.3;
-  music.play().catch(()=>{});
-}
-
-// 🎵 Toggle
-function toggleMusic(btn) {
-  if (music.paused) {
-    playNext();
-    btn.innerText = "⏸ Pause";
-  } else {
-    music.pause();
-    btn.innerText = "🎵 Play";
-  }
-}
-
-// ⏭️ Auto switch when track ends
-music.addEventListener("ended", playNext);
-
-// 📱 Auto start after first tap (mobile fix)
-document.body.addEventListener("click", () => {
-  if (music.paused) playNext();
-}, { once: true });
-</script>
-
-  
   
 <script src="script.js"></script>
 
