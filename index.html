@@ -21,7 +21,17 @@ p {
   margin-bottom: 5px;
 }
 
-
+/* 🎵 Music Button (extra only) */
+.music-btn {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  background: #00000088;
+  color: white;
+  border: none;
+  padding: 10px 15px;
+  border-radius: 20px;
+}
 </style>
 
 </head>
@@ -35,8 +45,77 @@ p {
 
 <a href="https://buymeacoffee.com/rgkuiwala">Buy Me A Coffee ('')"</a> 
 
-  
+
+<!-- 🎧 AUDIO SYSTEM (ADDED) -->
+<audio id="bgMusic" preload="auto"></audio>
+<button class="music-btn" id="musicBtn">🎵 Play</button>
+
+
 <script src="script.js"></script>
+
+<!-- 🎵 AUDIO SCRIPT (ADDED ONLY) -->
+<script>
+const music = document.getElementById("bgMusic");
+const btn = document.getElementById("musicBtn");
+
+// 🎶 Playlist
+const playlist = [
+  "https://cdn.pixabay.com/download/audio/2022/03/15/audio_c8c8a73467.mp3",
+  "https://cdn.pixabay.com/download/audio/2021/09/06/audio_8d1bdfc3b2.mp3",
+  "https://cdn.pixabay.com/download/audio/2022/10/25/audio_946b6f1f91.mp3"
+];
+
+let currentIndex = -1;
+let isPlaying = false;
+
+// 🔓 Unlock (IMPORTANT)
+function unlockAudio() {
+  music.play().then(() => {
+    music.pause();
+    music.currentTime = 0;
+  }).catch(()=>{});
+}
+
+document.addEventListener("click", unlockAudio, { once: true });
+document.addEventListener("touchstart", unlockAudio, { once: true });
+
+// 🎲 Next track
+function playNext() {
+  let next;
+  do {
+    next = Math.floor(Math.random() * playlist.length);
+  } while (next === currentIndex);
+
+  currentIndex = next;
+  music.src = playlist[currentIndex];
+  music.volume = 0.3;
+
+  music.play().then(()=>{
+    isPlaying = true;
+    btn.innerText = "⏸ Pause";
+  }).catch(()=>{});
+}
+
+// ▶️ Button control
+btn.addEventListener("click", () => {
+  if (!isPlaying) {
+    playNext();
+  } else {
+    music.pause();
+    isPlaying = false;
+    btn.innerText = "🎵 Play";
+  }
+});
+
+// ⏭️ Auto next
+music.addEventListener("ended", playNext);
+
+// 📱 First tap auto start
+document.body.addEventListener("click", () => {
+  if (!isPlaying) playNext();
+}, { once: true });
+
+</script>
 
 </body>
 </html>
