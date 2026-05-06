@@ -2,46 +2,72 @@
 <html>
 
 <head>
- <meta charset="UTF-8">
+<meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1.0,viewport-fit=cover">
 <meta name="theme-color" id="tmeta" content="#1C0F08">
 <meta name="description" content="A mindful break with lo-fi music and mood colors">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 <meta name="apple-mobile-web-app-title" content="Coffee & Colors">
-<link id="mani" rel="manifest">
+
 <title>Take a Break !! Tap !! Relax !! Feel Better ☕</title>
-<link rel="preconnect" href="https://fonts.googleapis.com">
 
-  <link href="style.css" rel="stylesheet" type="text/css" />
-
+<link href="style.css" rel="stylesheet" type="text/css" />
 
 <style>
-
-/* Paragraph */
 p {
   font-size: clamp(10px, 2.5vw, 15px);
   opacity: 0.8;
   margin-bottom: 5px;
+}
 
+/* Play Button */
+.music-btn {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  background: #00000088;
+  color: white;
+  border: none;
+  padding: 10px 15px;
+  border-radius: 20px;
+  cursor: pointer;
+}
 </style>
- 
-</head>
-<body>
- <canvas></canvas>
 
+</head>
+
+<body>
+
+<canvas></canvas>
 
 <div>🌅Good Morning🌺🌿</div>
-🌅🌺🌿<p>Have a Nice Day!!
-RG Kuiwala🔥✍️</p>🌅🌿❤️
+<p>Have a Nice Day!! RG Kuiwala🔥✍️</p>
 
 <a href="https://buymeacoffee.com/rgkuiwala">Buy Me A Coffee ('')"</a> 
 
+<!-- 🎵 Instrumental Music -->
+<audio id="bgMusic" loop>
+  <source src="https://cdn.pixabay.com/download/audio/2022/03/15/audio_c8c8a73467.mp3" type="audio/mpeg">
+</audio>
 
+<button class="music-btn" onclick="toggleMusic()">🎵 Play</button>
 
- 
-  <script src="script.js"></script>
+<script>
+const music = document.getElementById("bgMusic");
+
+function toggleMusic() {
+  if (music.paused) {
+    music.play();
+    event.target.innerText = "⏸ Pause";
+  } else {
+    music.pause();
+    event.target.innerText = "🎵 Play";
+  }
+}
+</script>
+
+<script src="script.js"></script>
 
 </body>
-
 </html>
