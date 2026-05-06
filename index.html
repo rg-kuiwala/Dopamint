@@ -46,50 +46,36 @@ p {
 
 <a href="https://buymeacoffee.com/rgkuiwala">Buy Me A Coffee ('')"</a> 
 
-<audio id="bgMusic" loop></audio>
+<audio id="bgMusic" loop preload="auto"></audio>
 
-<button class="music-btn" onclick="toggleMusic(this)">🎵 Play</button>
+<button onclick="startMusic(this)">🎵 Start</button>
 
 <script>
 const music = document.getElementById("bgMusic");
 
-// 🎶 Tracks
-const tracks = {
-  morning: "https://cdn.pixabay.com/download/audio/2022/03/15/audio_c8c8a73467.mp3",
-  night: "https://cdn.pixabay.com/download/audio/2021/09/06/audio_8d1bdfc3b2.mp3",
-  rain: "https://cdn.pixabay.com/download/audio/2022/10/25/audio_946b6f1f91.mp3"
-};
+// 🎶 apna music link daal
+music.src = "https://cdn.pixabay.com/download/audio/2022/03/15/audio_c8c8a73467.mp3";
+music.volume = 0.3;
 
-// 🌤️ Mood detect
-function getMood() {
-  const hour = new Date().getHours();
-  if (hour >= 5 && hour < 18) return "morning";
-  return "night";
-}
-
-// 🎵 Set music
-function setMoodMusic() {
-  const mood = getMood();
-  music.src = tracks[mood];
-  music.volume = 0.3;
-}
-
-setMoodMusic();
-
-// ▶️ FIXED toggle (button pass kiya)
-function toggleMusic(btn) {
-  if (music.paused) {
-    music.play().then(() => {
+// ✅ USER INTERACTION FIX
+function startMusic(btn) {
+  music.play()
+    .then(() => {
       btn.innerText = "⏸ Pause";
-    }).catch(err => {
-      alert("Click again to enable sound 🔊");
+    })
+    .catch(err => {
+      console.log("Play failed:", err);
     });
-  } else {
-    music.pause();
-    btn.innerText = "🎵 Play";
-  }
 }
+
+// ✅ AUTO PLAY AFTER FIRST CLICK ANYWHERE
+document.body.addEventListener("click", () => {
+  if (music.paused) {
+    music.play().catch(()=>{});
+  }
+}, { once: true });
 </script>
+  
 <script src="script.js"></script>
 
 </body>
