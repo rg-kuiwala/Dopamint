@@ -116,6 +116,73 @@ document.body.addEventListener("click", () => {
 }, { once: true });
 
 </script>
+<!-- 🎧 AUDIO -->
+<audio id="bgMusic" preload="auto"></audio>
 
+<button id="musicBtn" style="
+position:fixed;
+bottom:20px;
+right:20px;
+z-index:9999;
+padding:10px 15px;
+border-radius:20px;
+border:none;
+background:#000000aa;
+color:white;
+">
+🎵 Start
+</button>
+
+<script>
+(function(){
+
+const music = document.getElementById("bgMusic");
+const btn = document.getElementById("musicBtn");
+
+// 🎶 Playlist
+const playlist = [
+  "https://cdn.pixabay.com/download/audio/2022/03/15/audio_c8c8a73467.mp3",
+  "https://cdn.pixabay.com/download/audio/2021/09/06/audio_8d1bdfc3b2.mp3",
+  "https://cdn.pixabay.com/download/audio/2022/10/25/audio_946b6f1f91.mp3"
+];
+
+let index = 0;
+let started = false;
+
+// ✅ DIRECT PLAY (no conflict)
+btn.onclick = function(e){
+  e.stopPropagation(); // 🔥 main fix
+
+  if(!started){
+    music.src = playlist[index];
+    music.volume = 0.3;
+
+    music.play().then(()=>{
+      started = true;
+      btn.innerText = "⏸ Pause";
+    }).catch(()=>{
+      alert("Tap again 🔊");
+    });
+
+  } else {
+    if(music.paused){
+      music.play();
+      btn.innerText = "⏸ Pause";
+    } else {
+      music.pause();
+      btn.innerText = "🎵 Play";
+    }
+  }
+};
+
+// ⏭️ Auto next
+music.addEventListener("ended", function(){
+  index = (index + 1) % playlist.length;
+  music.src = playlist[index];
+  music.play();
+});
+
+})();
+</script>
 </body>
 </html>
