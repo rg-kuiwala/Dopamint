@@ -17,21 +17,6 @@
 
 
 <style>
-/* Main text styling */
-div {
-  font-size: clamp(11px, 4vw, 18px);
-  line-height: 1.6;
-  margin: 15px 30px;
-  padding: 15px;
-  border-radius: 16px;
-  
-  background: rgba(255, 255, 255, 0.05);
-  backdrop-filter: blur(10px);
-
-  box-shadow: 0 4px 20px rgba(0,0,0,0.3);
-
-  animation: fadeUp 1s ease forwards;
-}
 
 /* Paragraph */
 p {
@@ -40,37 +25,6 @@ p {
   margin-top: 10px;
 }
 
-/* Link button */
-a {
-  display: inline-block;
-  margin-top: 15px;
-  padding: 12px 20px;
-  border-radius: 30px;
-  text-decoration: none;
-  color: #fff;
-
-  background: linear-gradient(45deg, #ff7a18, #ffb347);
-  box-shadow: 0 4px 15px rgba(255, 150, 50, 0.5);
-
-  transition: all 0.3s ease;
-}
-
-a:hover {
-  transform: scale(1.05);
-  box-shadow: 0 6px 20px rgba(255, 150, 50, 0.8);
-}
-
-/* Animation */
-@keyframes fadeUp {
-  from {
-    opacity: 0;
-    transform: translateY(20px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
 </style>
 
 </head>
