@@ -46,34 +46,77 @@ p {
 
 <a href="https://buymeacoffee.com/rgkuiwala">Buy Me A Coffee ('')"</a> 
 
-<audio id="bgMusic" loop preload="auto"></audio>
+<audio id="bgMusic" preload="auto"></audio>
 
-<button onclick="startMusic(this)">🎵 Start</button>
+<button onclick="toggleMusic(this)">🎵 Play</button>
 
 <script>
 const music = document.getElementById("bgMusic");
 
-// 🎶 apna music link daal
-music.src = "https://cdn.pixabay.com/download/audio/2022/03/15/audio_c8c8a73467.mp3";
-music.volume = 0.3;
+// 🎶 Playlist (apne links daal sakta hai)
+const playlist = [
+  "https://cdn.pixabay.com/download/audio/2022/03/15/audio_c8c8a73467.mp3",
+  "https://cdn.pixabay.com/download/audio/2021/09/06/audio_8d1bdfc3b2.mp3",
+  "https://cdn.pixabay.com/download/audio/2022/10/25/audio_946b6f1f91.mp3"
+];
 
-// ✅ USER INTERACTION FIX
-function startMusic(btn) {
-  music.play()
-    .then(() => {
-      btn.innerText = "⏸ Pause";
-    })
-    .catch(err => {
-      console.log("Play failed:", err);
-    });
+let currentIndex = -1;
+
+// 🔀 Next random track (no repeat)
+function playNext() {
+  let nextIndex;
+  do {
+    nextIndex = Math.floor(Math.random() * playlist.length);
+  } while (nextIndex === currentIndex);
+
+  currentIndex = nextIndex;
+  music.src = playlist[currentIndex];
+  music.volume = 0.3;
+  music.play().catch(()=>{});
 }
 
-// ✅ AUTO PLAY AFTER FIRST CLICK ANYWHERE
-document.body.addEventListener("click", () => {
+// 🎵 Toggle
+function toggleMusic(btn) {
   if (music.paused) {
-    music.play().catch(()=>{});
+    playNext();
+    btn.innerText = "⏸ Pause";
+  } else {
+    music.pause();
+    btn.innerText = "🎵 Play";
   }
+}
+
+// ⏭️ Auto switch when track ends
+music.addEventListener("ended", playNext);
+
+// 📱 Auto start after first tap (mobile fix)
+document.body.addEventListener("click", () => {
+  if (music.paused) playNext();
 }, { once: true });
+</script>
+
+  <script>
+function updateMediaSession(title="Celestial Vibe") {
+  if ('mediaSession' in navigator) {
+    navigator.mediaSession.metadata = new MediaMetadata({
+      title: title,
+      artist: "Relax Mode",
+      album: "Focus",
+      artwork: [
+        { src: "icon-192.png", sizes: "192x192", type: "image/png" }
+      ]
+    });
+
+    navigator.mediaSession.setActionHandler('play', () => music.play());
+    navigator.mediaSession.setActionHandler('pause', () => music.pause());
+    navigator.mediaSession.setActionHandler('nexttrack', playNext);
+  }
+}
+
+// har track pe update karo
+music.addEventListener("play", () => {
+  updateMediaSession("Track " + (currentIndex + 1));
+});
 </script>
   
 <script src="script.js"></script>
