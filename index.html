@@ -46,16 +46,43 @@ p {
 
 <a href="https://buymeacoffee.com/rgkuiwala">Buy Me A Coffee ('')"</a> 
 
-<!-- 🎵 Instrumental Music -->
-<audio id="bgMusic" loop>
-  <source src="https://cdn.pixabay.com/download/audio/2022/03/15/audio_c8c8a73467.mp3" type="audio/mpeg">
-</audio>
+<!-- 🎵 Audio -->
+<audio id="bgMusic" loop></audio>
 
 <button class="music-btn" onclick="toggleMusic()">🎵 Play</button>
 
 <script>
 const music = document.getElementById("bgMusic");
 
+// 🎶 Mood-based tracks (replace with your own hosted links)
+const tracks = {
+  morning: "https://cdn.pixabay.com/download/audio/2022/03/15/audio_c8c8a73467.mp3",
+  night: "https://cdn.pixabay.com/download/audio/2021/09/06/audio_8d1bdfc3b2.mp3",
+  rain: "https://cdn.pixabay.com/download/audio/2022/10/25/audio_946b6f1f91.mp3"
+};
+
+// 🌦️ Detect mood
+function getMood() {
+  const hour = new Date().getHours();
+
+  // Simulated rain condition (later API se connect kar sakta hai)
+  const isRaining = false; // change dynamically later
+
+  if (isRaining) return "rain";
+  if (hour >= 5 && hour < 18) return "morning";
+  return "night";
+}
+
+// 🎼 Load correct music
+function setMoodMusic() {
+  const mood = getMood();
+  music.src = tracks[mood];
+  music.volume = 0.3;
+}
+
+setMoodMusic();
+
+// ▶️ Toggle
 function toggleMusic() {
   if (music.paused) {
     music.play();
@@ -66,7 +93,6 @@ function toggleMusic() {
   }
 }
 </script>
-
 <script src="script.js"></script>
 
 </body>
