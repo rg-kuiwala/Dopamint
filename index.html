@@ -95,29 +95,7 @@ document.body.addEventListener("click", () => {
 }, { once: true });
 </script>
 
-  <script>
-function updateMediaSession(title="Celestial Vibe") {
-  if ('mediaSession' in navigator) {
-    navigator.mediaSession.metadata = new MediaMetadata({
-      title: title,
-      artist: "Relax Mode",
-      album: "Focus",
-      artwork: [
-        { src: "icon-192.png", sizes: "192x192", type: "image/png" }
-      ]
-    });
-
-    navigator.mediaSession.setActionHandler('play', () => music.play());
-    navigator.mediaSession.setActionHandler('pause', () => music.pause());
-    navigator.mediaSession.setActionHandler('nexttrack', playNext);
-  }
-}
-
-// har track pe update karo
-music.addEventListener("play", () => {
-  updateMediaSession("Track " + (currentIndex + 1));
-});
-</script>
+  
   
 <script src="script.js"></script>
 
